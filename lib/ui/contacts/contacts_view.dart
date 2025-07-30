@@ -1,7 +1,7 @@
 import "dart:io";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-import "contacts_model.dart";
+import "../../data/contacts_repository.dart";
 import "contacts_list_view.dart";
 import "contacts_entry_view.dart";
 import "contacts_view_model.dart";
@@ -15,7 +15,7 @@ class ContactsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ContactsViewModel>(
       create: (context) {
-        ContactsModel.init(_docsDir);
+        ContactsRepository.init(_docsDir);
         final vm = ContactsViewModel(_docsDir);
         vm.loadContacts();
         return vm;

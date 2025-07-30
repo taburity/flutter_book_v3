@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../notes/note_data.dart';
-import 'notes_model.dart';
+import '../../domain/note_data.dart';
+import '../../data/notes_repository.dart';
 
 class NotesViewModel extends ChangeNotifier {
   int _stackIndex = 0;
@@ -11,7 +11,7 @@ class NotesViewModel extends ChangeNotifier {
   String color = '';
 
   Future<void> loadNotes() async {
-    _notes = await NotesModel.db.getAll();
+    _notes = await NotesRepository.db.getAll();
     notifyListeners();
   }
   void startEditing({NoteData? note}) {
@@ -31,15 +31,15 @@ class NotesViewModel extends ChangeNotifier {
     if (entityBeingEdited == null) return;
     entityBeingEdited!.color = color;
     if (entityBeingEdited!.id == null) {
-      await NotesModel.db.create(entityBeingEdited!);
+      await NotesRepository.db.create(entityBeingEdited!);
     } else {
-      await NotesModel.db.update(entityBeingEdited!);
+      await NotesRepository.db.update(entityBeingEdited!);
     }
     await loadNotes();
     setStackIndex(0);
   }
   Future<void> delete(int id) async {
-    await NotesModel.db.delete(id);
+    await NotesRepository.db.delete(id);
     await loadNotes();
   }
 }

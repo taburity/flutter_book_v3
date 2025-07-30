@@ -1,21 +1,21 @@
 import "dart:io";
 import "package:path/path.dart";
 import "package:sqflite/sqflite.dart";
-import "../appointments/appointment_data.dart";
+import "../domain/appointment_data.dart";
 
 
-class AppointmentsModel {
+class AppointmentsRepository {
 
   final Directory _docsDir;
 
-  static late final AppointmentsModel db;
+  static late final AppointmentsRepository db;
   static bool _initialized = false;
 
-  AppointmentsModel._(this._docsDir);
+  AppointmentsRepository._(this._docsDir);
 
   static void init(Directory docsDir) {
     if(!_initialized) {
-      db = AppointmentsModel._(docsDir);
+      db = AppointmentsRepository._(docsDir);
       _initialized = true;
     }
   }

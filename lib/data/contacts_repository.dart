@@ -1,21 +1,21 @@
 import "dart:io";
 import "package:path/path.dart";
 import "package:sqflite/sqflite.dart";
-import "../contacts/contact_data.dart";
+import "../domain/contact_data.dart";
 
 
-class ContactsModel {
+class ContactsRepository {
 
   final Directory _docsDir;
 
-  static late final ContactsModel db;
+  static late final ContactsRepository db;
   static bool _initialized = false;
 
-  ContactsModel._(this._docsDir);
+  ContactsRepository._(this._docsDir);
 
   static void init(Directory docsDir) {
     if(!_initialized) {
-      db = ContactsModel._(docsDir);
+      db = ContactsRepository._(docsDir);
       _initialized = true;
     }
   }

@@ -1,10 +1,10 @@
 import "dart:io";
 import "package:flutter/material.dart";
 import "package:path_provider/path_provider.dart";
-import "appointments/appointments_view.dart";
-import "contacts/contacts_view.dart";
-import "notes/notes_view.dart";
-import "tasks/tasks_view.dart";
+import "ui/appointments/appointments_view.dart";
+import "ui/contacts/contacts_view.dart";
+import "ui/notes/notes_view.dart";
+import "ui/tasks/tasks_view.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

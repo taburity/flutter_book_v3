@@ -2,9 +2,9 @@ import "package:flutter/material.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
 import "package:intl/intl.dart";
 import "package:provider/provider.dart";
-import "task_data.dart";
+import "../../data/tasks_repository.dart";
+import "../../domain/task_data.dart";
 import "tasks_view_model.dart";
-import "tasks_model.dart";
 
 class TasksListView extends StatelessWidget {
   const TasksListView({super.key});
@@ -91,7 +91,7 @@ class TasksListView extends StatelessWidget {
                     onTap: () async {
                       if (task.completed == "true") return;
                       vm.startEditing(
-                          task: await TasksModel.db.get(task.id!));
+                          task: await TasksRepository.db.get(task.id!));
                       vm.setChosenDate(sDueDate);
                       vm.setStackIndex(1);
                     },

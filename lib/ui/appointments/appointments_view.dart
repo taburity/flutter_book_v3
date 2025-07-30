@@ -1,7 +1,7 @@
 import "dart:io";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-import "appointments_model.dart";
+import "../../data/appointments_repository.dart";
 import "appointments_list_view.dart";
 import "appointments_entry_view.dart";
 import "appointments_view_model.dart";
@@ -16,7 +16,7 @@ class Appointments extends StatelessWidget {
     return ChangeNotifierProvider<AppointmentsViewModel>(
       create: (context) {
         final vm = AppointmentsViewModel();
-        AppointmentsModel.init(_docsDir);
+        AppointmentsRepository.init(_docsDir);
         vm.loadAppointments();
         return vm;
       },

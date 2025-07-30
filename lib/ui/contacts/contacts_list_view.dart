@@ -4,8 +4,8 @@ import "package:flutter_slidable/flutter_slidable.dart";
 import "package:intl/intl.dart";
 import "package:path/path.dart";
 import "package:provider/provider.dart";
-import "contact_data.dart";
-import "contacts_model.dart";
+import "../../data/contacts_repository.dart";
+import "../../domain/contact_data.dart";
 import "contacts_view_model.dart";
 
 class ContactsListView extends StatelessWidget {
@@ -78,7 +78,7 @@ class ContactsListView extends StatelessWidget {
   Future<void> _editContact(BuildContext context, ContactData contact, ContactsViewModel vm) async {
     final avatarFile = File(join(vm.docsDir.path, "avatar"));
     if (avatarFile.existsSync()) avatarFile.deleteSync();
-    vm.startEditing(contact: await ContactsModel.db.get(contact.id!));
+    vm.startEditing(contact: await ContactsRepository.db.get(contact.id!));
     if (vm.entityBeingEdited!.birthday == null) {
       vm.setChosenDate('');
     } else {

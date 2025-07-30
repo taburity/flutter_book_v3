@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'appointment_data.dart';
-import 'appointments_model.dart';
+import '../../data/appointments_repository.dart';
+import '../../domain/appointment_data.dart';
 
 class AppointmentsViewModel extends ChangeNotifier {
   int _stackIndex = 0;
@@ -12,7 +12,7 @@ class AppointmentsViewModel extends ChangeNotifier {
   String apptTime = '';
 
   Future<void> loadAppointments() async {
-    _appointments = await AppointmentsModel.db.getAll();
+    _appointments = await AppointmentsRepository.db.getAll();
     notifyListeners();
   }
 
@@ -34,16 +34,16 @@ class AppointmentsViewModel extends ChangeNotifier {
   Future<void> save() async {
     if (entityBeingEdited == null) return;
     if (entityBeingEdited!.id == null) {
-      await AppointmentsModel.db.create(entityBeingEdited!);
+      await AppointmentsRepository.db.create(entityBeingEdited!);
     } else {
-      await AppointmentsModel.db.update(entityBeingEdited!);
+      await AppointmentsRepository.db.update(entityBeingEdited!);
     }
     await loadAppointments();
     setStackIndex(0);
   }
 
   Future<void> delete(int id) async {
-    await AppointmentsModel.db.delete(id);
+    await AppointmentsRepository.db.delete(id);
     await loadAppointments();
   }
 

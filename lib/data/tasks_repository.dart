@@ -1,21 +1,21 @@
 import "dart:io";
 import "package:path/path.dart";
 import "package:sqflite/sqflite.dart";
-import "task_data.dart";
+import "../domain/task_data.dart";
 
 
-class TasksModel {
+class TasksRepository {
 
   final Directory _docsDir;
 
-  static late final TasksModel db;
+  static late final TasksRepository db;
   static bool _initialized = false;
 
-  TasksModel._(this._docsDir);
+  TasksRepository._(this._docsDir);
 
   static void init(Directory docsDir) {
     if(!_initialized) {
-      db = TasksModel._(docsDir);
+      db = TasksRepository._(docsDir);
       _initialized = true;
     }
   }

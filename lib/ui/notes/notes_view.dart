@@ -1,7 +1,7 @@
 import "dart:io";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-import "notes_model.dart";
+import "../../data/notes_repository.dart";
 import "notes_list_view.dart";
 import "notes_entry_view.dart";
 import "notes_view_model.dart";
@@ -15,7 +15,7 @@ class NotesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<NotesViewModel>(
       create: (context) {
-        NotesModel.init(_docsDir);
+        NotesRepository.init(_docsDir);
         final vm = NotesViewModel();
         vm.loadNotes();
         return vm;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'task_data.dart';
-import 'tasks_model.dart';
+import '../../domain/task_data.dart';
+import '../../data/tasks_repository.dart';
 
 class TasksViewModel extends ChangeNotifier {
   int _stackIndex = 0;
@@ -11,7 +11,7 @@ class TasksViewModel extends ChangeNotifier {
   String? chosenDate;
 
   Future<void> loadTasks() async {
-    _tasks = await TasksModel.db.getAll();
+    _tasks = await TasksRepository.db.getAll();
     notifyListeners();
   }
 
@@ -33,22 +33,22 @@ class TasksViewModel extends ChangeNotifier {
   Future<void> save() async {
     if (entityBeingEdited == null) return;
     if (entityBeingEdited!.id == null) {
-      await TasksModel.db.create(entityBeingEdited!);
+      await TasksRepository.db.create(entityBeingEdited!);
     } else {
-      await TasksModel.db.update(entityBeingEdited!);
+      await TasksRepository.db.update(entityBeingEdited!);
     }
     await loadTasks();
     setStackIndex(0);
   }
 
   Future<void> delete(int id) async {
-    await TasksModel.db.delete(id);
+    await TasksRepository.db.delete(id);
     await loadTasks();
   }
 
   Future<void> toggleCompleted(TaskData task, bool value) async {
     task.completed = value.toString();
-    await TasksModel.db.update(task);
+    await TasksRepository.db.update(task);
     await loadTasks();
   }
 }

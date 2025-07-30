@@ -4,7 +4,7 @@ import "package:provider/provider.dart";
 import "tasks_list_view.dart";
 import "tasks_entry_view.dart";
 import "tasks_view_model.dart";
-import "tasks_model.dart";
+import "../../data/tasks_repository.dart";
 
 class TasksView extends StatelessWidget {
   final Directory _docsDir;
@@ -15,7 +15,7 @@ class TasksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<TasksViewModel>(
       create: (context) {
-        TasksModel.init(_docsDir);
+        TasksRepository.init(_docsDir);
         final vm = TasksViewModel();
         vm.loadTasks();
         return vm;

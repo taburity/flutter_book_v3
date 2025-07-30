@@ -1,20 +1,20 @@
 import "dart:io";
 import "package:path/path.dart";
 import "package:sqflite/sqflite.dart";
-import "../notes/note_data.dart";
+import "../domain/note_data.dart";
 
 
-class NotesModel {
+class NotesRepository {
   final Directory _docsDir;
 
-  static late final NotesModel db;
+  static late final NotesRepository db;
   static bool _initialized = false;
 
-  NotesModel._(this._docsDir);
+  NotesRepository._(this._docsDir);
 
   static void init(Directory docsDir) {
     if(!_initialized) {
-      db = NotesModel._(docsDir);
+      db = NotesRepository._(docsDir);
       _initialized = true;
     }
   }

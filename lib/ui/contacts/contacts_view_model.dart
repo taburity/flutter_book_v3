@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:path/path.dart';
-import 'contact_data.dart';
-import 'contacts_model.dart';
+import '../../data/contacts_repository.dart';
+import '../../domain/contact_data.dart';
 
 class ContactsViewModel extends ChangeNotifier {
   int _stackIndex = 0;
@@ -16,7 +16,7 @@ class ContactsViewModel extends ChangeNotifier {
   ContactsViewModel(this.docsDir);
 
   Future<void> loadContacts() async {
-    _contacts = await ContactsModel.db.getAll();
+    _contacts = await ContactsRepository.db.getAll();
     notifyListeners();
   }
 
@@ -38,10 +38,10 @@ class ContactsViewModel extends ChangeNotifier {
   Future<void> save() async {
     if (entityBeingEdited == null) return;
     if (entityBeingEdited!.id == null) {
-      var id = await ContactsModel.db.create(entityBeingEdited!);
+      var id = await ContactsRepository.db.create(entityBeingEdited!);
       _renameTempAvatar(id);
     } else {
-      await ContactsModel.db.update(entityBeingEdited!);
+      await ContactsRepository.db.update(entityBeingEdited!);
       _renameTempAvatar(entityBeingEdited!.id!);
     }
     await loadContacts();
@@ -51,7 +51,7 @@ class ContactsViewModel extends ChangeNotifier {
   Future<void> delete(int id) async {
     final avatarFile = File(join(docsDir.path, id.toString()));
     if (avatarFile.existsSync()) avatarFile.deleteSync();
-    await ContactsModel.db.delete(id);
+    await ContactsRepository.db.delete(id);
     await loadContacts();
   }
 

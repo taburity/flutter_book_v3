@@ -4,8 +4,8 @@ import "package:intl/intl.dart";
 import "package:flutter_calendar_carousel/flutter_calendar_carousel.dart";
 import "package:flutter_calendar_carousel/classes/event.dart";
 import "package:provider/provider.dart";
-import "appointment_data.dart";
-import "appointments_model.dart";
+import "../../data/appointments_repository.dart";
+import "../../domain/appointment_data.dart";
 import "appointments_view_model.dart";
 
 class AppointmentsListView extends StatelessWidget {
@@ -131,7 +131,7 @@ class AppointmentsListView extends StatelessWidget {
   }
 
   void _editAppointment(BuildContext context, AppointmentData appointment, AppointmentsViewModel vm) async {
-    vm.startEditing(appointment: await AppointmentsModel.db.get(appointment.id!));
+    vm.startEditing(appointment: await AppointmentsRepository.db.get(appointment.id!));
     if (vm.entityBeingEdited!.apptDate.isEmpty) {
       vm.setChosenDate('');
     } else {

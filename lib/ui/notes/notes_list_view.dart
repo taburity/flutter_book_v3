@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_slidable/flutter_slidable.dart";
 import "package:provider/provider.dart";
-import "notes_model.dart";
-import "../notes/note_data.dart";
+import "../../data/notes_repository.dart";
+import "../../domain/note_data.dart";
 import "notes_view_model.dart";
 
 class NotesListView extends StatelessWidget {
@@ -71,7 +71,7 @@ class NotesListView extends StatelessWidget {
                       title: Text(note.title),
                       subtitle: Text(note.content),
                       onTap: () async {
-                        vm.startEditing(note: await NotesModel.db.get(note.id!));
+                        vm.startEditing(note: await NotesRepository.db.get(note.id!));
                         vm.setColor(vm.entityBeingEdited!.color);
                         vm.setStackIndex(1);
                       },
